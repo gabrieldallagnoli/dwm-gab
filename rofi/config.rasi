@@ -1,0 +1,11 @@
+configuration {
+    show-icons: true;
+    icon-theme: "Papirus";
+    display-ssh:    "";
+    display-run:    "";
+    display-drun:   "";
+    display-window: "";
+    display-combi:  "";
+}
+
+@theme "nord.rasi"

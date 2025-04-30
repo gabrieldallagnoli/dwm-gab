@@ -1,0 +1,15 @@
+[keyboard]
+bindings = [
+  { key = "C", mods = "Control", action = "Copy" },
+  { key = "V", mods = "Control", action = "Paste" },
+  { key = "S", mods = "Control|Shift", action = "Paste" },
+  { key = "Up", mods = "Control|Shift", action = "ScrollLineUp" },
+  { key = "Down", mods = "Control|Shift", action = "ScrollLineDown" },
+  { key = "K", mods = "Control|Shift", action = "ScrollLineUp" },
+  { key = "J", mods = "Control|Shift", action = "ScrollLineDown" },
+  { key = "PageUp", mods = "Control|Shift", action = "ScrollPageUp" },
+  { key = "PageDown", mods = "Control|Shift", action = "ScrollPageDown" },
+  { key = "Home", mods = "Control|Shift", action = "ScrollToTop" },
+  { key = "End", mods = "Control|Shift", action = "ScrollToBottom" },
+  { key = "Backspace", mods = "Control|Shift", action = "ResetFontSize" },
+]
