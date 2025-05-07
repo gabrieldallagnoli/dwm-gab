@@ -13,7 +13,7 @@ static const int swallowfloating         = 1;        /* 1 means swallow floating
 static const int swterminheritfs         = 1;        /* 1 terminal inherits fullscreen on unswallow, 0 otherwise */
 static const int showbar                 = 1;        /* 0 means no bar */
 static const int topbar                  = 1;        /* 0 means bottom bar */
-static const char *fonts[]               = { "MesloLGS Nerd Font Mono:size=16" };
+static const char *fonts[]               = { "MesloLGS Nerd Font Mono:size=16", "NotoColorEmoji:pixelsize=16:antialias=true:autohint=true" };
 static const char normfg[]               = "#d8dee9";
 static const char normbg[]               = "#2e3440";
 static const char normborder[]           = "#3b4252";
