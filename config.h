@@ -13,6 +13,8 @@ static const int swallowfloating         = 1;        /* 1 means swallow floating
 static const int swterminheritfs         = 1;        /* 1 terminal inherits fullscreen on unswallow, 0 otherwise */
 static const int showbar                 = 1;        /* 0 means no bar */
 static const int topbar                  = 1;        /* 0 means bottom bar */
+#define ICONSIZE                         17          /* icon size */
+#define ICONSPACING                      5           /* space between icon and title */
 static const char *fonts[]               = { "MesloLGS Nerd Font Mono:size=16", "NotoColorEmoji:pixelsize=16:antialias=true:autohint=true" };
 static const char normfg[]               = "#d8dee9";
 static const char normbg[]               = "#2e3440";
@@ -61,10 +63,9 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
-	/* symbol     arrange function */
+	/* symbol        arrange function */
 	{ "[]=",         tile },   /* first entry is default */
 	{ "><>",         NULL },   /* no layout function means floating behavior */
-	{ "[M]",         monocle },
 };
 
 /* key definitions */
@@ -94,7 +95,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_equal,      spawn,            SHCMD ("amixer sset Master 5%+ unmute") },
 	{ MODKEY,                       XK_minus,      spawn,            SHCMD ("amixer sset Master 5%- unmute") },
 	{ MODKEY,                       XK_m,          spawn,            SHCMD ("amixer sset Master $(amixer get Master | grep -q '\\[on\\]' && echo 'mute' || echo 'unmute')") },
-	{ MODKEY|ControlMask,           XK_m,          spawn,            SHCMD ("~/Bin/switch-output.sh") },
+	{ MODKEY|ControlMask,           XK_m,          spawn,            SHCMD ("pactl set-sink-port alsa_output.pci-0000_00_1f.3.analog-stereo $(pactl list sinks | awk '/analog-stereo/,/Active/ {if ($1==\"Active\") print ($3==\"analog-output-headphones\"?\"analog-output-lineout\":\"analog-output-headphones\")}')") },
 	{ MODKEY|ControlMask,           XK_i,          spawn,            SHCMD ("pgrep -x 'picom' > /dev/null && killall picom || picom -b") },
 	{ MODKEY|ControlMask,           XK_b,          togglebar,        {0} },
 	{ MODKEY,                       XK_k,          focusstack,       {.i = +1 } },
@@ -126,8 +127,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_4,                            3)
 	TAGKEYS(                        XK_5,                            4)
 	{ MODKEY|ShiftMask,             XK_BackSpace,  quit,             {0} },
-	{ MODKEY|ControlMask|ShiftMask, XK_s,          spawn,            SHCMD ("systemctl poweroff") },
-	{ MODKEY|ControlMask|ShiftMask, XK_r,          spawn,            SHCMD ("systemctl reboot") },
 };
 
 /* button definitions */
