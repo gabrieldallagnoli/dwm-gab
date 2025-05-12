@@ -217,6 +217,7 @@ static void grabkeys(void);
 static void incnmaster(const Arg *arg);
 static void keypress(XEvent *e);
 static void killclient(const Arg *arg);
+static void losefullscreen(Client *sel, Client *next);
 static void manage(Window w, XWindowAttributes *wa);
 static void mappingnotify(XEvent *e);
 static void maprequest(XEvent *e);
@@ -260,6 +261,7 @@ static void tagmon(const Arg *arg);
 static void tile(Monitor *m);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
+static void togglefullscreen(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
@@ -1085,6 +1087,7 @@ focusstack(const Arg *arg)
 					c = i;
 	}
 	if (c) {
+		losefullscreen(selmon->sel, c);
 		focus(c);
 		restack(selmon);
 	}
@@ -1277,6 +1280,15 @@ killclient(const Arg *arg)
 }
 
 void
+losefullscreen(Client *sel, Client *next)
+{
+	if (!sel || !next)
+		return;
+	if (sel->isfullscreen && ISVISIBLE(sel) && sel->mon == next->mon && !next->isfloating)
+		setfullscreen(sel, 0);
+}
+
+void
 manage(Window w, XWindowAttributes *wa)
 {
 	Client *c, *t = NULL, *term = NULL;
@@ -1349,8 +1361,10 @@ manage(Window w, XWindowAttributes *wa)
 	XMoveResizeWindow(dpy, c->win, c->x + 2 * sw, c->y, c->w, c->h); /* some windows require this */
 	setclientstate(c, NormalState);
 	if (focusclient) {
-	if (c->mon == selmon)
+	if (c->mon == selmon) {
+			losefullscreen(selmon->sel, c);
 			unfocus(selmon->sel, 0);
+    }
 		c->mon->sel = c;
 	}
 	arrange(c->mon);
@@ -2423,6 +2437,14 @@ togglefloating(const Arg *arg)
 		resize(selmon->sel, selmon->sel->x, selmon->sel->y,
 			selmon->sel->w, selmon->sel->h, 0);
 	arrange(selmon);
+}
+
+void
+togglefullscreen(const Arg *arg) {
+    if (!selmon->sel)
+        return;
+
+    setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
 }
 
 void
