@@ -40,22 +40,18 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "󰊖", "", "" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
-	/* xprop(1):
-	 *	WM_CLASS(STRING) = instance, class
-	 *	WM_NAME(STRING) = title
-	 */
-	/* class             instance    title            tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "Alacritty",       NULL,       NULL,            0,         0,          1,           0,        -1 },
-	{ "Thunar",          NULL,       NULL,            0,         1,          0,           0,        -1 },
-    { "Lutris",          NULL,       NULL,            0,         1,          0,           0,        -1 },
-    { "steam",           NULL,       NULL,            0,         1,          0,           0,        -1 },
-	{ "zenity",          NULL,       NULL,            0,         1,          0,           0,        -1 },
-	{ "Virt-manager",    NULL,       NULL,            0,         1,          0,           0,        -1 },
-	{ "dolphin-emu",     NULL,       NULL,            0,         1,          0,           0,        -1 },
-	{ NULL,              NULL,       "Event Tester",  0,         0,          0,           1,        -1 }, /* xev */
+	/* class             instance    title            tags mask  isfloating  isterminal   noswallow  monitor */
+	{ "Alacritty",       NULL,       NULL,            0,         0,          1,           0,         -1 },
+	{ "Thunar",          NULL,       NULL,            0,         1,          0,           0,         -1 },
+    { "Lutris",          NULL,       NULL,            0,         1,          0,           0,         -1 },
+    { "steam",           NULL,       NULL,            0,         1,          0,           0,         -1 },
+	{ "zenity",          NULL,       NULL,            0,         1,          0,           0,         -1 },
+	{ "Virt-manager",    NULL,       NULL,            0,         1,          0,           0,         -1 },
+	{ "dolphin-emu",     NULL,       NULL,            0,         1,          0,           0,         -1 },
+	{ NULL,              NULL,       "Event Tester",  0,         0,          0,           1,         -1 }, /* xev */
 };
 
 /* layout(s) */
@@ -88,7 +84,7 @@ static const char *terminal[] = { "alacritty", NULL };
 
 #include "movestack.c"
 static const Key keys[] = {
-	/* modifier                     key            function        argument */
+	/* modifier                     key            function          argument */
 	{ MODKEY,                       XK_BackSpace,  spawn,            {.v = launcher } },
 	{ MODKEY,                       XK_Return,     spawn,            {.v = terminal } },
 	{ MODKEY,                       XK_p,          spawn,            SHCMD ("flameshot full -p ~/Images/Screenshots") },
@@ -98,6 +94,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_equal,      spawn,            SHCMD ("amixer sset Master 5%+ unmute") },
 	{ MODKEY,                       XK_minus,      spawn,            SHCMD ("amixer sset Master 5%- unmute") },
 	{ MODKEY,                       XK_m,          spawn,            SHCMD ("amixer sset Master $(amixer get Master | grep -q '\\[on\\]' && echo 'mute' || echo 'unmute')") },
+	{ MODKEY|ControlMask,           XK_m,          spawn,            SHCMD ("~/Bin/switch-output.sh") },
 	{ MODKEY|ControlMask,           XK_i,          spawn,            SHCMD ("pgrep -x 'picom' > /dev/null && killall picom || picom -b") },
 	{ MODKEY|ControlMask,           XK_g,          spawn,            SHCMD ("xdg-open https://github.com/gabrieldallagnoli") },
 	{ MODKEY|ShiftMask,             XK_b,          togglebar,        {0} },
@@ -135,7 +132,6 @@ static const Key keys[] = {
 };
 
 /* button definitions */
-/* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkClientWin,         MODKEY,         Button1,        moveorplace,    {.i = 2} },
