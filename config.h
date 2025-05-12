@@ -40,7 +40,7 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "1", "2", "3", "4", "5" };
 
 static const Rule rules[] = {
 	/* class             instance    title            tags mask  isfloating  isterminal   noswallow  monitor */
@@ -62,9 +62,9 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "",         tile },   /* first entry is default */
-	{ "",         NULL },   /* no layout function means floating behavior */
-	{ "",         monocle },
+	{ "[]=",         tile },   /* first entry is default */
+	{ "><>",         NULL },   /* no layout function means floating behavior */
+	{ "[M]",         monocle },
 };
 
 /* key definitions */
@@ -96,8 +96,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_m,          spawn,            SHCMD ("amixer sset Master $(amixer get Master | grep -q '\\[on\\]' && echo 'mute' || echo 'unmute')") },
 	{ MODKEY|ControlMask,           XK_m,          spawn,            SHCMD ("~/Bin/switch-output.sh") },
 	{ MODKEY|ControlMask,           XK_i,          spawn,            SHCMD ("pgrep -x 'picom' > /dev/null && killall picom || picom -b") },
-	{ MODKEY|ControlMask,           XK_g,          spawn,            SHCMD ("xdg-open https://github.com/gabrieldallagnoli") },
-	{ MODKEY|ShiftMask,             XK_b,          togglebar,        {0} },
+	{ MODKEY|ControlMask,           XK_b,          togglebar,        {0} },
 	{ MODKEY,                       XK_k,          focusstack,       {.i = +1 } },
 	{ MODKEY,                       XK_j,          focusstack,       {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_k,          movestack,        {.i = +1 } },
