@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int refreshrate    = 60;       /* refresh rate for smoother window movements */
+static const unsigned int refreshrate    = 120;      /* refresh rate for smoother window movements */
 static const unsigned int borderpx       = 1;        /* border pixel of windows */
 static const unsigned int snap           = 15;       /* snap pixel */
 static const unsigned int systraypinning = 0;        /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
@@ -95,7 +95,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_equal,      spawn,            SHCMD ("amixer sset Master 5%+ unmute") },
 	{ MODKEY,                       XK_minus,      spawn,            SHCMD ("amixer sset Master 5%- unmute") },
 	{ MODKEY,                       XK_m,          spawn,            SHCMD ("amixer sset Master $(amixer get Master | grep -q '\\[on\\]' && echo 'mute' || echo 'unmute')") },
-	{ MODKEY|ControlMask,           XK_m,          spawn,            SHCMD ("pactl set-sink-port alsa_output.pci-0000_00_1f.3.analog-stereo $(pactl list sinks | awk '/analog-stereo/,/Active/ {if ($1==\"Active\") print ($3==\"analog-output-headphones\"?\"analog-output-lineout\":\"analog-output-headphones\")}')") },
+	{ MODKEY|ControlMask,           XK_m,          spawn,            SHCMD ("/home/gab/Bin/sw") },
 	{ MODKEY|ControlMask,           XK_i,          spawn,            SHCMD ("pgrep -x 'picom' > /dev/null && killall picom || picom -b") },
 	{ MODKEY|ControlMask,           XK_b,          togglebar,        {0} },
 	{ MODKEY,                       XK_k,          focusstack,       {.i = +1 } },
@@ -118,7 +118,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_e,          togglefloating,   {0} },
 	{ MODKEY,                       XK_0,          view,             {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,      focusmon,         {.i = -1 } },
-	{ MODKEY,                       XK_period,     focusmon,         {.i = +1 } },
+	{ MODKEY,                       XK_period,     focusmon,         {.i = +1 } },       
 	{ MODKEY|ShiftMask,             XK_comma,      tagmon,           {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period,     tagmon,           {.i = +1 } },
 	TAGKEYS(                        XK_1,                            0)
